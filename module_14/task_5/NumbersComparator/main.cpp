@@ -21,11 +21,30 @@ int main()
         cin >> realNum2;
     }while(!(isValidRealNum(realNum1) && isValidRealNum(realNum2)));
 
-    cout << realNum1 << endl << realNum2 << endl << endl;
-
     cout << compare(realNum1, realNum2);
 
     return 0;
+}
+
+bool isMore(string str1, string str2){
+    string beforeDotStr1 = subStr(str1, 0, indexDot(str1));
+    string beforeDotStr2 = subStr(str2, 0, indexDot(str2));
+
+    if(beforeDotStr1.length() != beforeDotStr2.length()){
+        return (beforeDotStr1.length() < beforeDotStr2.length() ? true : false);
+    }else{
+        if(beforeDotStr1 != beforeDotStr2){
+            return (beforeDotStr1 < beforeDotStr2 ? true : false);
+        }else{
+            string afterDotStr1 = subStr(str1, indexDot(str1), str1.length());
+            string afterDotStr2 = subStr(str2, indexDot(str2), str1.length());
+            if(afterDotStr1.length() != afterDotStr2.length()){
+                return (afterDotStr1.length() < afterDotStr2.length() ? true : false);
+            }else{
+                return (afterDotStr1 < afterDotStr2 ? true : false);
+            }
+        }
+    }
 }
 
 string compare(string str1, string str2){
@@ -39,11 +58,10 @@ string compare(string str1, string str2){
     if(!signCheck(str1) && signCheck(str2))return "More";
 
     if(!signCheck(str1) && !signCheck(str2)){
-        string preDotStr1 = subStr(str1, 0, indexDot(str1));
-        string preDotStr2 = subStr(str2, 0, indexDot(str2));
+        return (isMore(str1, str2)? "Less" : "More");
 
-
-
+    }else{
+        return (isMore(str1, str2)? "More" : "Less");
     }
 
     return "error";
