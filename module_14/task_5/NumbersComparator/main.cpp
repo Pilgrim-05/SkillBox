@@ -5,6 +5,7 @@ using namespace std;
 int indexDot(string str);
 bool signCheck(string str);
 string subStr(string str, int begin, int end);
+bool isMore(string str1, string str2);
 string zeroRemov(string str);
 bool isValidRealNum(string str);
 string compare(string str1, string str2);
