@@ -24,8 +24,6 @@ int main()
         cout << "\nGeneral level of self-isolation in the house " << (float)totalPeople/numberOfResidents << "% \n";
     }
 
-
-
     return 0;
 }
 
