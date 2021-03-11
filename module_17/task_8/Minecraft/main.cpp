@@ -5,15 +5,15 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
-
 using vector3d = vector<vector<vector<bool>>>;
+
 void outCub(const vector3d v);
 void fillCub(vector3d &v);
 void cubeSection(const vector3d v, int sectionNumber);
 
 int main()
 {
-     vector3d v(5, vector<vector<bool>>(5, vector<bool>(10, 0)));
+     vector3d v(5, vector<vector<bool>>(5, vector<bool>(10)));
 
      fillCub(v);
      cout << endl << "Enter section number: ";
@@ -23,7 +23,8 @@ int main()
          cout << "Incorrect section number!" << endl;
          cin >> sectionNumber;
      }
-     cubeSection(v, sectionNumber);cout << endl << "************************" << endl;
+     cubeSection(v, sectionNumber);
+     cout << endl << "************************" << endl;
      //outCub(v);
 
     return 0;
