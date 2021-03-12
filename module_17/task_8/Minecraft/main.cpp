@@ -5,15 +5,14 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
-using vector3d = vector<vector<vector<bool>>>;
 
-void outCub(const vector3d v);
-void fillCub(vector3d &v);
-void cubeSection(const vector3d v, int sectionNumber);
+void outCub(const vector<vector <vector<int>>> v);
+void fillCub(vector<vector <vector<int>>> &v);
+void cubeSection(const vector<vector <vector<int>>> v, int sectionNumber);
 
 int main()
 {
-     vector3d v(5, vector<vector<bool>>(5, vector<bool>(10)));
+     vector<vector <vector<int>>> v(5, vector<vector<int>>(5, vector <int> (10)) );
 
      fillCub(v);
      cout << endl << "Enter section number: ";
@@ -24,13 +23,13 @@ int main()
          cin >> sectionNumber;
      }
      cubeSection(v, sectionNumber);
-     cout << endl << "************************" << endl;
-     //outCub(v);
+//     cout << endl << "************************" << endl;
+//     outCub(v);
 
     return 0;
 }
 
-void cubeSection(const vector3d v, int sectionNumber ){
+void cubeSection(const vector<vector <vector<int>>> v, int sectionNumber ){
     cout << endl;
     for(int i = 0; i < v.size(); ++i)
     {
@@ -42,7 +41,7 @@ void cubeSection(const vector3d v, int sectionNumber ){
     }
 }
 
-void outCub(const vector3d v)
+void outCub(const vector<vector <vector<int>>> v)
 {
     for(int i = 0; i < v.size(); ++i)
     {
@@ -56,7 +55,7 @@ void outCub(const vector3d v)
     }
 }
 
-void fillCub(vector3d &v)
+void fillCub(vector<vector <vector<int>>> &v)
 {
     int z;
     for(int i = 0; i < v.size(); ++i){
@@ -74,5 +73,3 @@ void fillCub(vector3d &v)
         }
     }
 }
-
-
