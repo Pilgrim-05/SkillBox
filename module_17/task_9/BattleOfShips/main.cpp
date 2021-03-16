@@ -9,6 +9,8 @@ const int SIZE = 10;
 
 void printField(int field[][SIZE], int rows);
 void rankingShips(int field[][SIZE]);
+int shot(int row, int col, int field[][SIZE]);
+void gamePlayer(int field1[][SIZE], int field2[][SIZE]);
 
 int main()
 {
@@ -17,26 +19,59 @@ int main()
 
     cout << "Player 1 fill in the field:" << endl;
     rankingShips(fieldPlayer1);
-    cout << "Player 2 fill in the field:" << endl;
+    cout << endl << "Player 2 fill in the field:" << endl;
     rankingShips(fieldPlayer2);
 
-    printField(fieldPlayer1, SIZE);
+//    cout << endl << "Player 1 field:" << endl;
+//    printField(fieldPlayer1, SIZE);
+//    cout << endl << "Player 2 field:" << endl;
+//    printField(fieldPlayer2, SIZE);
+
+    gamePlayer(fieldPlayer1, fieldPlayer2);
 
     return 0;
 }
 
-void printField(int field[][SIZE], int rows){
-    int columns = sizeof(field[0]) / sizeof(field[0][0]);
-    cout << endl;
-    for(int i =0; i < rows + 2; ++i){
-        for(int j =0; j < columns + 2; ++j){
-            if(field[i][j] == 1) cout << (char)177 << " ";
-            else cout << "O" << " ";
+void gamePlayer(int field1[][SIZE], int field2[][SIZE]){
+    int shipsPlayer1 = 20;
+    int shipsPlayer2 = 20;
+    int player = 1;
+    int counter = 0;
+
+    while(shipsPlayer1 && shipsPlayer2){
+        int row, col;
+        cout << "Player " << player << ", enter coordinates for the shot: ";
+        cin >> row >> col;
+        while(row < 0 || row > 9 || col < 0 || col > 9){
+            cout << "wrong coordinates.\nre-enter coordinates: ";
+            cin >> row >> col;
         }
-        cout << endl;
+
+        if(counter % 2 == 0){
+            shipsPlayer2 -= shot(row, col, field2);
+            player = 2;
+        }else{
+            shipsPlayer1 -= shot(row, col, field1);
+            player = 1;
+        }
+        ++counter;
     }
+    player = player == 1 ? 2 : 1;
+
+    cout << "******** Won by Player " << player << " ********" << endl;
 }
 
+int shot(int row, int col, int field[][SIZE]){
+    int result = 0;
+    if(field[row][col] == 1){
+        cout << "Hit the target!" << endl;
+        field[row][col] = 0;
+        result = 1;
+    }else{
+        cout << "Off target!" << endl;
+    }
+    return result;
+}
 
 void rankingShips(int field[][SIZE]){
     int count = 4;
@@ -59,7 +94,7 @@ void rankingShips(int field[][SIZE]){
                 }
 
                 if(position == "V" || position == "H"){
-                    for(int l = 0; l <= ship; ++l){
+                    for(int l = 0; l < ship; ++l){
                         if(position == "H"){
                             if(row < 0 || row > SIZE-1 || col < 0
                                     || col + ship > SIZE || field[row][col + l] != 0){
@@ -98,5 +133,18 @@ void rankingShips(int field[][SIZE]){
         }
         ++ship;
         --count;
+    }
+}
+
+void printField(int field[][SIZE], int rows){
+    int columns = sizeof(field[0]) / sizeof(field[0][0]);
+    cout << endl;
+    for(int i =0; i < rows; ++i){
+        for(int j =0; j < columns; ++j){
+            if(field[i][j] == 1) cout << (char)177;
+            else cout << "O";
+            //cout << field[i][j] << " ";
+        }
+        cout << endl;
     }
 }
