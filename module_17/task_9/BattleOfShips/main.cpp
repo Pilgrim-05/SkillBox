@@ -38,6 +38,8 @@ void gamePlayer(int field1[][SIZE], int field2[][SIZE]){
     int player = 1;
     int counter = 0;
 
+    int size = sizeof(field1[0])/sizeof(field1[0][0]);
+
     while(shipsPlayer1 && shipsPlayer2){
         int row, col;
         cout << "Player " << player << ", enter coordinates for the shot: ";
@@ -50,9 +52,11 @@ void gamePlayer(int field1[][SIZE], int field2[][SIZE]){
         if(counter % 2 == 0){
             shipsPlayer2 -= shot(row, col, field2);
             player = 2;
+            printField(field2, size);
         }else{
             shipsPlayer1 -= shot(row, col, field1);
             player = 1;
+            printField(field1, size);
         }
         ++counter;
     }
@@ -65,7 +69,7 @@ int shot(int row, int col, int field[][SIZE]){
     int result = 0;
     if(field[row][col] == 1){
         cout << "Hit the target!" << endl;
-        field[row][col] = 0;
+        field[row][col] = 3;
         result = 1;
     }else{
         cout << "Off target!" << endl;
@@ -83,7 +87,7 @@ void rankingShips(int field[][SIZE]){
         cout << "a ship with a size - " << ship << endl;
 
         for(int i = 0; i < count; ++i){
-        bool flag;
+            bool flag;
             do{
                 flag = false;
                 cout << "Enter start coordinates: ";
@@ -130,10 +134,12 @@ void rankingShips(int field[][SIZE]){
                     if(row + ship + 1 < 10 && j == 0)field[row + ship][col] = 2;
                 }
             }
+            printField(field, SIZE);
         }
         ++ship;
         --count;
     }
+    cout << endl;
 }
 
 void printField(int field[][SIZE], int rows){
@@ -141,8 +147,9 @@ void printField(int field[][SIZE], int rows){
     cout << endl;
     for(int i =0; i < rows; ++i){
         for(int j =0; j < columns; ++j){
-            if(field[i][j] == 1) cout << (char)177;
-            else cout << "O";
+            if(field[i][j] == 1) cout << "X" << " ";
+            else if(field[i][j] == 3) cout << "*" << " ";
+            else cout << "." << " ";
             //cout << field[i][j] << " ";
         }
         cout << endl;
