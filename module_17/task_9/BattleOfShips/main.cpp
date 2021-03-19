@@ -22,11 +22,6 @@ int main()
     cout << endl << "Player 2 fill in the field:" << endl;
     rankingShips(fieldPlayer2);
 
-//    cout << endl << "Player 1 field:" << endl;
-//    printField(fieldPlayer1, SIZE);
-//    cout << endl << "Player 2 field:" << endl;
-//    printField(fieldPlayer2, SIZE);
-
     gamePlayer(fieldPlayer1, fieldPlayer2);
 
     return 0;
