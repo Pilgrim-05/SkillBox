@@ -25,7 +25,7 @@ int main()
 
 void sort(vector<int> &vec)
 {
-    for(int i = vec.size()-1; i >=0 ; --i)
+    for(int i = vec.size()-1; i >=0; --i)
     {
         int max = 0;
         for(int j = 0; j <= i; ++j)
