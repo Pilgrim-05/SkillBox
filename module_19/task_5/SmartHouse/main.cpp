@@ -22,7 +22,7 @@ void monitoring(const char& state, const int& hour);
 int main()
 {
         char flags = 0;
-        for(int time = 14; time < 48; ++time){
+        for(int time = 0; time < 48; ++time){
             int hour = time % 24;
             if(hour < 10)cout << "HOUR: " << " " << hour << ":00" << endl;
             else cout << "HOUR: " << hour << ":00" << endl;
