@@ -15,19 +15,17 @@ int main() {
   buff >> op;
   buff >> num2;
 
-  double result = 0.0;
-
-   if(op == '+'){
-        std::cout << num1 << " " << op << " " << num2 << " = "<< num1 + num2 << std::endl;
-   }else if(op == '-'){
-        std::cout << num1 << " " << op << " " << num2 << " = "<< num1 - num2 << std::endl;
-   }else if(op == '*'){
-        std::cout << num1 << " " << op << " " << num2 << " = "<< num1 * num2 << std::endl;
-   }else if(op == '/'){
-        if(num2 != 0) {
-          std::cout << num1 << " " << op << " " << num2 << " = "<< num1 / num2 << std::endl;
-        } else{
-          std::cout << "division by zero error" << std::endl;
-        }
-   }
+  if(op == '+'){
+       std::cout << num1 << " " << op << " " << num2 << " = "<< num1 + num2 << std::endl;
+  }else if(op == '-'){
+       std::cout << num1 << " " << op << " " << num2 << " = "<< num1 - num2 << std::endl;
+  }else if(op == '*'){
+       std::cout << num1 << " " << op << " " << num2 << " = "<< num1 * num2 << std::endl;
+  }else if(op == '/'){
+       if(num2 != 0) {
+         std::cout << num1 << " " << op << " " << num2 << " = "<< num1 / num2 << std::endl;
+       } else{
+         std::cout << "division by zero error" << std::endl;
+       }
+  }
 }
