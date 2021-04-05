@@ -13,7 +13,7 @@ int main() {
 }
 
 void evendigits(long long n, int& ans){
-  if(n/10 == 0) return;
-  if(n%10%2 == 0) ++ans;
+  if(n / 10 == 0) return;
+  if(n % 2 == 0) ++ans;
   evendigits(n/10, ans);
 }

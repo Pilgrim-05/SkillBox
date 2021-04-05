@@ -27,9 +27,9 @@ int main()
     return 0;
 }
 
-void swapVec(std::vector<int>& vec, int *arr){
-    int tmp;
+void swapVec(std::vector<int>& vec, int *arr){    
     for(size_t i = 0; i < vec.size(); ++i){
+        int tmp;
         tmp = vec.at(i);
         vec.at(i) = arr[i];
         arr[i] = tmp;
