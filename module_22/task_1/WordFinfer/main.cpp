@@ -19,7 +19,6 @@ int main()
         while(!words.eof()){
           string tmpWord;
           words >> tmpWord;
-          //cout << tmpWord << " ";
           if(word == tmpWord) ++counter;
         }
         words.close();
