@@ -1,0 +1,4 @@
+cat kitten dog puppy hamster parrot pig
+crocodile deer elephant elk fox giraffe 
+goat hare hippopotamus cat hyena jaguar 
+leopard lion lynx marten cat 
