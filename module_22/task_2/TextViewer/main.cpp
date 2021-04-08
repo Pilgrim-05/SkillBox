@@ -7,25 +7,26 @@ using std::endl;
 using std::string;
 
 int main()
-{
-    char* fileName;
+{    
+    string fileName;
     cout << "Enter file name: ";
     cin >> fileName;
-    std::ifstream words;
+    std::ifstream ifile;
 
-    words.open(fileName);
-    if(words.is_open()){
-        while(!words.eof()){
-          string word;
-          words >> word;
-          cout << word << " ";
+    ifile.open(fileName.c_str(), std::ios::binary);
+    if (ifile.is_open()){
 
-        }
-        words.close();
-    }else{
-        cout << "File not found!" << endl;
+       while(ifile){
+         char buf[25];
+         ifile.read(buf, 25);
+         buf[ifile.gcount()] = '\0';
+         cout << buf;
+       }
+
+       ifile.close();
+    }else {
+        std::cerr << "File not found!";
     }
 
     return 0;
 }
-
