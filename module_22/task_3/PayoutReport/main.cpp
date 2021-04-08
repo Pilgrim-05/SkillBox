@@ -31,6 +31,8 @@ int main()
             }
 
         }
+    }else {
+        cout << "File not found!";
     }
 
     cout << "Funds paid out - " << summ << endl;
