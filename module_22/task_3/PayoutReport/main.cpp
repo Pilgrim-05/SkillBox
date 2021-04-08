@@ -31,12 +31,11 @@ int main()
             }
 
         }
+        cout << "Funds paid out - " << summ << endl;
+        cout << fullname << " has a maximum salary." << endl;
     }else {
         cout << "File not found!";
     }
 
-    cout << "Funds paid out - " << summ << endl;
-    cout << fullname << " has a maximum salary." << endl;
     return 0;
 }
-
