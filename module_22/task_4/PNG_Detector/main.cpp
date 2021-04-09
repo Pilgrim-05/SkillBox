@@ -14,7 +14,7 @@ int main()
     cout << "Enter the full file name: ";
     string fileName;
     cin >> fileName;
-    cout << (isPng(fileName)? "Yes" : "No") << endl;
+    cout << (isPng(fileName)? "This is a png file" : "It is not a png file") << endl;
 
     return 0;
 }
