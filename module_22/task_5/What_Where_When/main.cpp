@@ -7,8 +7,8 @@ using std::endl;
 using std::string;
 
 void newPos(const int &num, int &pos);
-void questionViewer(const int &pos);
-bool getAnswer(const string &ans, const int &pos);
+bool questionViewer(const int &pos);
+int getAnswer(const string &ans, const int &pos);
 
 int sector[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
@@ -28,13 +28,16 @@ int main()
         number %= 13;
 
         newPos(number, pos);
-        questionViewer(pos);
-        string myAnsver;
-        cout << "Please enter your answer: ";
-        cin >> myAnsver;
-        getAnswer(myAnsver, pos)? ++player : ++viewer;
+        if(questionViewer(pos)){
+            string myAnsver;
+            cout << "Please enter your answer: ";
+            cin >> myAnsver;
+            int result;
+            result = getAnswer(myAnsver, pos);
+            if(result == 1) ++player;
+            else if(result == 0) ++viewer;
+        }
         cout << "current score: **Player(" << player << ":" << viewer << ")Viewer**" << endl;
-
     }
 
     cout << (player > viewer ? "Player wins." : "Viewer wins.") << endl;
@@ -50,7 +53,7 @@ void newPos(const int &num, int &pos){
     sector[pos] = -1;
 }
 
-void questionViewer(const int &pos){
+bool questionViewer(const int &pos){
     string fileName = "../src/" + std::to_string(pos+1) + "_q.txt";
     std::ifstream in;
     in.open(fileName.c_str(), std::ios::binary);
@@ -60,30 +63,32 @@ void questionViewer(const int &pos){
         {
             std::cout << line << std::endl;
         }
+        in.close();
     }else{
         cout << "This file cannot be opened." << endl;
-        exit(-1);
+        return 0;
     }
-    in.close();
+    return 1;
 }
 
-bool getAnswer(const string &ans, const int &pos){
+int getAnswer(const string &ans, const int &pos){
     string fileName = "../src/" + std::to_string(pos+1) + "_a.txt";
     std::ifstream in;
     in.open(fileName.c_str(), std::ios::binary);
-    if (in.is_open()){
-        string answer;
+    string answer;
+    if (in.is_open()){        
         in >> answer;
-        if(answer == ans){
-            cout << "Player won" << endl;
-            return true;
-        }else{
-            cout << "Viewer won" << endl;
-            return false;
-        }
+        in.close();
     }else{
         cout << "This file cannot be opened." << endl;
-        exit(-1);
+        return -1;
     }
-    in.close();
+
+    if(answer == ans){
+        cout << "Player won" << endl;
+        return 1;
+    }else{
+        cout << "Viewer won" << endl;
+        return 0;
+    }
 }

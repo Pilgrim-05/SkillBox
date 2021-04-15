@@ -7,4 +7,4 @@ SOURCES += main.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
-
+CONFIG +=c++11

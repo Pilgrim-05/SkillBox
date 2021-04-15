@@ -22,8 +22,8 @@ int main()
 bool isPng(const string &path){
     std::ifstream iFile(path.c_str(), std::ios::binary);
 
-    string fileType = path.substr(path.length()-3);
-    if(fileType != "png" && fileType != "PNG") return false;
+    string fileType = path.substr(path.length()-4);
+    if(fileType != ".png" && fileType != ".PNG") return false;
     char headNum;
     string headChar;
     if(iFile.is_open()){

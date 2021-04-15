@@ -13,12 +13,12 @@ int main()
     cin >> fileName;
     std::ifstream ifile;
 
-    ifile.open(fileName.c_str(), std::ios::binary);
+    ifile.open(fileName, std::ios::binary);
     if (ifile.is_open()){
 
        while(ifile){
-         char buf[25];
-         ifile.read(buf, 25);
+         char buf[26];
+         ifile.read(buf, sizeof(buf)-1);
          buf[ifile.gcount()] = '\0';
          cout << buf;
        }
