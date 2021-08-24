@@ -7,5 +7,4 @@ SOURCES += main.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
-CONFIG += cpp14
-
+CONFIG +=c++14

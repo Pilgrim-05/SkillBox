@@ -8,16 +8,20 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+const std::string pathToFile = "../src/atm.bin";
+
 int totalAmount(const std::vector <int> &vec);
 void fillingATM(std::vector <int> &vec);
 void ArrayToFile(const std::vector <int> &vec);
 bool fileToArray(std::vector <int> &vec);
 void printVec(const std::vector <int> &vec);
 
+//void fileread(); //test
+
 int main() {
   const int SIZE = 5;
   std::vector <int> denominations(SIZE, 0); //the number of each denomination in ATM (100/500/1000/2000/5000)
-
+    //fileread();
   char operation;
   cout << "Select operation (fill (+) / remove (-)): ";
   cin >> operation;
@@ -49,7 +53,7 @@ int main() {
 
 bool fileToArray(std::vector <int> &vec)
 {
-  std::ifstream fin("atm.bin", std::ios::binary);
+  std::ifstream fin(pathToFile, std::ios::binary);
   if(fin.is_open())
   {
     int index = 0;
@@ -69,7 +73,7 @@ bool fileToArray(std::vector <int> &vec)
 
 void ArrayToFile(const std::vector <int> &vec)
 {
-  std::ofstream fout("atm.bin", std::ios::binary);
+  std::ofstream fout(pathToFile, std::ios::binary);
   if(fout.is_open())
   {
     for(int i = 0; i < vec.size(); ++i){
@@ -114,4 +118,23 @@ void printVec(const std::vector <int> &vec)
   }
   cout << endl;
 }
+
+//-----------test-------------
+void fileread()
+{
+  std::ifstream fin(pathToFile, std::ios::binary);
+  if(fin.is_open())
+  {
+    while(!fin.eof()){
+      int tmp=0;
+      fin >> tmp;
+      cout << tmp << " ";
+    }
+  fin.close();
+
+  }else{
+    cout << "File not found!" << endl;
+  }
+}
+//----------------------------
 
