@@ -15,21 +15,22 @@ void fillingATM(std::vector <int> &vec);
 void ArrayToFile(const std::vector <int> &vec);
 bool fileToArray(std::vector <int> &vec);
 void printVec(const std::vector <int> &vec);
+void withdraw(std::vector <int> &vec, int amount);
 
-//void fileread(); //test
 
 int main() {
   const int SIZE = 5;
   std::vector <int> denominations(SIZE, 0); //the number of each denomination in ATM (100/500/1000/2000/5000)
-    //fileread();
   char operation;
   cout << "Select operation (fill (+) / remove (-)): ";
   cin >> operation;
   if(operation == '+')
   {
     cout << "------Filling ATM------" << endl;
+
     fillingATM(denominations);
     ArrayToFile(denominations);
+    printVec(denominations);
   }else if(operation == '-')
   {
     cout << "--------Withdrawing funds from an ATM--------" << endl;
@@ -38,6 +39,10 @@ int main() {
       cout << "Enter the amount: ";
       int amount;
       cin >> amount;
+      cout << "bills\t   \tcash" << endl;
+      cout << "---------------------" << endl;
+      withdraw(denominations, amount);
+      ArrayToFile(denominations);
     }else{
       cout << "ATM is empty." << endl;
     }
@@ -47,28 +52,28 @@ int main() {
     cout << "WARNING: The command is not recognized!" << endl;
   }
 
-  printVec(denominations);
+  //printVec(denominations);
 }
 
 
 bool fileToArray(std::vector <int> &vec)
 {
   std::ifstream fin(pathToFile, std::ios::binary);
+  bool status = false;
   if(fin.is_open())
   {
+    status = true;
     int index = 0;
     while(!fin.eof()){
-      int tmp;
+      int tmp = 0;
       fin >> tmp;
       vec[index] = tmp;
       ++index;
     }
   fin.close();
 
-  }else{
-    cout << "File not found!" << endl;
   }
-  return totalAmount(vec);
+  return status;
 }
 
 void ArrayToFile(const std::vector <int> &vec)
@@ -76,7 +81,7 @@ void ArrayToFile(const std::vector <int> &vec)
   std::ofstream fout(pathToFile, std::ios::binary);
   if(fout.is_open())
   {
-    for(int i = 0; i < vec.size(); ++i){
+    for(size_t i = 0; i < vec.size(); ++i){
       fout << vec[i] << endl;
     }
 
@@ -90,22 +95,32 @@ void ArrayToFile(const std::vector <int> &vec)
 void fillingATM(std::vector <int> &vec)
 {
   const int MAX_BILL = 1000; // Maximum number of notes in ATM
-  srand(time(nullptr));
-  int emptCells = 0;
+  int total = 0;
+  if(fileToArray(vec))
+  {
+     total = totalAmount(vec);
+  }
+  if(total < MAX_BILL)
+  {
+      srand(time(nullptr));
+      int emptCells = 0;
 
-  emptCells = MAX_BILL - totalAmount(vec);
+      emptCells = MAX_BILL - total;
 
-  for(int i = 0; i < emptCells; ++i){
-    int bill;
-    bill = rand() % 5;
-    vec[bill]++;
+      for(int i = 0; i < emptCells; ++i){
+        int bill;
+        bill = rand() % 5;
+        vec[bill]++;
+      }
+  }else{
+      cout << "Maximum number of banknotes in an ATM!" << endl;
   }
 }
 
 int totalAmount(const std::vector <int> &vec)
 {
   int summ = 0;
-  for(int i = 0; i < vec.size(); ++i){
+  for(size_t i = 0; i < vec.size(); ++i){
     summ +=vec[i];
   }
   return summ;
@@ -113,28 +128,40 @@ int totalAmount(const std::vector <int> &vec)
 
 void printVec(const std::vector <int> &vec)
 {
-  for(int i = 0; i < vec.size(); ++i){
+  for(size_t i = 0; i < vec.size(); ++i){
     cout << vec[i] << " ";
   }
   cout << endl;
+
 }
 
-//-----------test-------------
-void fileread()
+void withdraw(std::vector <int> &vec, int amount)
 {
-  std::ifstream fin(pathToFile, std::ios::binary);
-  if(fin.is_open())
-  {
-    while(!fin.eof()){
-      int tmp=0;
-      fin >> tmp;
-      cout << tmp << " ";
+    int banknotes[]={100, 500, 1000, 2000, 5000};
+    int summ = 0;
+    for(size_t i = 0; i < vec.size(); ++i){
+      summ +=vec[i]*banknotes[i];
     }
-  fin.close();
 
-  }else{
-    cout << "File not found!" << endl;
-  }
+    if(amount <= 0 || amount > summ || amount%100 != 0)
+    {
+        cout << "The operation cannot be performed." << endl;
+    }else
+    {
+        for(int i = vec.size()-1; i >= 0; --i){
+
+
+            if(amount >= banknotes[i])
+            {
+               int tmp = 0;
+               tmp = amount / banknotes[i] <= vec[i]? amount / banknotes[i]: vec[i];
+               amount -=banknotes[i] * tmp;
+               vec[i] -=tmp;
+               cout << banknotes[i] << "\t - \t" << (banknotes[i] * tmp) << endl;
+
+            }
+
+        }
+    }
+
 }
-//----------------------------
-
