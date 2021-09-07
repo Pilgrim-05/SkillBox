@@ -1,0 +1,3 @@
+Ivan Petrov 07.09.2021 80000
+Vasya Zaicev 15.02.1995 95000
+Oleg Serov 05.09.2021 150000
