@@ -4,6 +4,8 @@
 
 using namespace std;
 
+void addToQueue(const string &, map<string, int> &);
+
 int main()
 {
     map<string, int> queueLine;
@@ -19,16 +21,34 @@ int main()
             if(!queueLine.empty())
             {
                 cout << queueLine.begin()->first << endl;
-                queueLine.erase(queueLine.begin());
+                int counter = queueLine.begin()->second;
+                queueLine[queueLine.begin()->first]  = --counter;
+                if(counter < 0)
+                {
+                  queueLine.erase(queueLine.begin());
+                }
+
             }else {
                 cout << "The queue is empty" << endl;
                 status = false;
             }
 
         }else {
-            queueLine.insert(make_pair(command, 0));
+            addToQueue(command, queueLine);
         }
     }
-
     return 0;
+}
+
+void addToQueue(const string &command, map<string, int> &queueLine)
+{
+  int counter = 0;
+  if(queueLine.find(command) == queueLine.end())
+  {
+    queueLine.insert(make_pair(command, 0));
+  }else {
+    counter = queueLine.find(command)->second;
+    ++counter;
+    queueLine[command] = counter;
+  }
 }
