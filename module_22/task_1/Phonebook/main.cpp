@@ -37,12 +37,23 @@ string request(string &command, map<string, string> &phBook_numKey, map<string, 
     string str;
     if(isNum(command))
     {
-       map<string, string>::iterator it = phBook_numKey.find(command);
-       str = it->second;
+        if(phBook_numKey.find(command) == phBook_numKey.end())
+        {
+            str = "not found in the list.";
+        }else {
+            map<string, string>::iterator it = phBook_numKey.find(command);
+            str = it->second;
+        }
+
     }else
     {
-        map<string, string>::iterator it = phBook_nameKey.find(command);
-        str = it->second;
+        if(phBook_nameKey.find(command) == phBook_nameKey.end())
+        {
+            str = "not found in the list.";
+        }else {
+            map<string, string>::iterator it = phBook_nameKey.find(command);
+            str = it->second;
+        }
     }
     return str;
 }
