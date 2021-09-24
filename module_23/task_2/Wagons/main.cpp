@@ -6,19 +6,21 @@ using namespace std;
 
 void filling(vector<int> &);
 void analysis(vector<int> &);
+void printMap(const map<int, int>&);
 
-#define M(s) s
+#define MACR(s) s
 
 int main() {
   vector<int> wagons(10);
-  M(filling)(wagons);
-  M(analysis)(wagons);
+  MACR(filling)(wagons);
+  MACR(analysis)(wagons);
 
   return 0;
 }
 
 void filling(vector<int> &wagons)
 {
+    cout << "Write ten numbers separated by a space." << endl;
   int tmp;
   for(size_t i = 0; i < wagons.size(); ++i)
   {
@@ -47,17 +49,22 @@ void analysis(vector<int> &wagons)
   }
 
   cout << endl << "***overcrowded wagons***" << endl;
-  for(auto it = crowded.begin(); it != crowded.end(); ++it)
-  {
-    cout << "Wagon #" << it->first << " : " << it->second << endl;
-  }
-
+  printMap(crowded);
   cout << endl << "***free seats in wagons***" << endl;
-  for(auto it = free.begin(); it != free.end(); ++it)
-  {
-    cout << "Wagon #" << it->first << " : " << it->second << endl;
-  }
-
+  printMap(free);
   cout << endl << "Total number of passengers: " << total << endl;
 
+}
+
+void printMap(const map<int, int> &mp)
+{
+    if(!mp.empty())
+    {
+        for(auto it = mp.begin(); it != mp.end(); ++it)
+        {
+          cout << "Wagon #" << it->first << " : " << it->second << endl;
+        }
+    }else{
+        cout << "Are not available." << endl;
+    }
 }
