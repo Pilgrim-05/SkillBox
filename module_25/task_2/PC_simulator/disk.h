@@ -1,6 +1,6 @@
 #pragma once
-#include <vector>
 #include <string>
+#include <vector>
 
 
 const std::string FILE_NAME = "../src/data.txt";

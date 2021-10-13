@@ -1,4 +1,4 @@
 #pragma once
 #include <vector>
 
-int compute(std::vector<int> &);
+int compute(const std::vector<int> &);

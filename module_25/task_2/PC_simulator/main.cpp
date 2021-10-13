@@ -9,9 +9,11 @@
  * - display (вывести на экран).
  * - exit — выходит из программы.
 */
-
 #include <iostream>
+#include "ram.h"
+#include "cpu.h"
 #include "gpu.h"
+#include "disk.h"
 #include "kbd.h"
 
 using namespace std;
@@ -26,19 +28,19 @@ int main()
     {
         if(command == "sum")
         {
-
+            cout << compute(read()) << endl;
         }else if(command == "save")
         {
-
+            save(read());
         }else if(command == "load")
         {
-
+            write(load());
         }else if(command == "input")
         {
-
+            write(input());
         }else if(command == "display")
         {
-
+            display(read());
         }
 
         cout << "Enter the command(sum/save/load/input/display/exit): ";
@@ -47,5 +49,3 @@ int main()
 
     return 0;
 }
-
-
