@@ -11,7 +11,7 @@ void playTrack(vector<Track> &playList)
     for(auto i : playList)
     {
         tm creation = i.getCreation();
-        std::cout << "Name: " << i.getName() << " Created: " << put_time(&creation, "%c") << " Duration: " << i.getDuration() << std::endl;
+        std::cout << "Name: " << i.getName() << " Created: " << put_time(&creation, "%Y/%m/%d") << " Duration: " << i.getDuration() << std::endl;
 
     }
 }
@@ -26,9 +26,10 @@ int main()
     vector<Track> playList;
     for(int i = 0; i < number; ++i)
     {
-        Track tr;
-        tr.addTrack();
-        playList.push_back(tr);
+        Track *tr = new Track();
+        tr->addTrack();
+        playList.push_back(*tr);
+        delete tr;
     }
 
     cout << "****************Play List****************\n";

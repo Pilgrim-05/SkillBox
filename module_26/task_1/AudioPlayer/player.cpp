@@ -59,7 +59,7 @@ void Player::next()
 void Player::playTrack(const int index)
 {
     tm creation = trackList[index].getCreation();
-    std::cout << "Name: " << trackList[index].getName() << " Created: " << std::put_time(&creation, "%c") << " Duration: " << trackList[index].getDuration() << " sec." << std::endl;
+    std::cout << "Name: " << trackList[index].getName() << " Created: " << std::put_time(&creation, "%Y/%m/%d") << " Duration: " << trackList[index].getDuration() << " sec." << std::endl;
     activeTrack = index;
     playbackStatus = true;
 }
