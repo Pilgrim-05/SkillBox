@@ -3,6 +3,7 @@
 #include "track.h"
 #include "player.h"
 #include <iomanip>
+#include <limits>
 
 using namespace std;
 
@@ -22,14 +23,13 @@ int main()
     cout << "Enter the number of tracks in the playlist: ";
     int number;
     cin >> number;
-    cin.ignore(32767, '\n');
+    cin.ignore(numeric_limits<int>::max(), '\n');
     vector<Track> playList;
     for(int i = 0; i < number; ++i)
     {
-        Track *tr = new Track();
-        tr->addTrack();
-        playList.push_back(*tr);
-        delete tr;
+        Track tr;
+        tr.addTrack();
+        playList.push_back(tr);
     }
 
     cout << "****************Play List****************\n";

@@ -1,9 +1,5 @@
 #include "phone.h"
 #include <iostream>
-#include <map>
-
-std::map<std::string, std::string> contactNumber;
-
 
 Phone::Phone()
 {
@@ -12,23 +8,21 @@ Phone::Phone()
 
 void Phone::add()
 {
-    Contact *contact = new Contact;
+    Contact contact;
     std::cout << "Enter contact name: ";
     std::string name;
     getline(std::cin, name);
-    contact->setName(name);
+    contact.setName(name);
 
     std::string number;
     std::cout << "Enter the contact number: +7";
     getline(std::cin, number);
-    while(!contact->setNum(number)){
+    while(!contact.setNum(number)){
         std::cout << "Enter the correct number: +7";
         getline(std::cin, number);
     }
 
-    contactNumber.insert(std::make_pair(contact->getName(), contact->getNum()));
-
-    delete contact;
+    contactNumber.insert(std::make_pair(contact.getName(), contact.getNum()));
 }
 
 void Phone::call()
