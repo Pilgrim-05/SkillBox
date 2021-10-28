@@ -62,34 +62,39 @@ void namingElves(Tree * tree);
 int neighborsFinder(Tree * tree, std::string name);
 Tree* nullParent(Tree* p);
 
-
 int main()
 {
-    //vector<Tree*> forest(5);
+    std::vector<Tree*> forest(5);
 
-    Tree* tmp = new Tree(nullptr);
-
-    tmp->treeGenerator(3, 5);
-
-    for(int i = 0; i < tmp->getNumBranchs(); ++i)
+    for(int k = 0; k < forest.size(); ++k)
     {
-        tmp->getBranch(i)->treeGenerator(2, 3);
+        forest[k] = new Tree(nullptr);
+        forest[k]->treeGenerator(3, 5);
+
+        for(int i = 0; i < forest[k]->getNumBranchs(); ++i)
+        {
+            forest[k]->getBranch(i)->treeGenerator(2, 3);
+        }
+
+        namingElves(forest[k]);
     }
 
-    namingElves(tmp);
     std::cout << "*********************************" << std::endl;
 
     std::cout << "Desired elf name : ";
     std::string name;
     getline(std::cin, name);
+    int result = 0;
+    for(int i = 0; i < forest.size(); ++i)
+    {
+        result = neighborsFinder(forest[i], name);
+        if(result != -1) break;
+    }
 
-    int result = neighborsFinder(tmp, name);
     if(result != -1)
     {
         std::cout << "This elf has " << result <<" neighbors " << std::endl;
     }
-
-    delete tmp;
 
     return 0;
 }
