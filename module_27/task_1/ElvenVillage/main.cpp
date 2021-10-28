@@ -11,6 +11,10 @@ private:
     Tree *parent = nullptr;
     std::vector<Tree*> branchs;
 
+    void setElfName(std::string name)
+    {
+      elfName = name;
+    }
 
 public:
     Tree() = default;
@@ -23,11 +27,6 @@ public:
     std::string getElfName()
     {
       return elfName;
-    }
-
-    void setElfName(std::string name)
-    {
-      elfName = name;
     }
 
     Tree* getParent()
@@ -54,17 +53,20 @@ public:
         {
             Tree *tmp = new Tree(this);
             branchs[i] = tmp;
+            std::string name;
+            std::cout << "Enter the name of the elf: ";
+            getline(std::cin, name);
+            branchs[i]->setElfName(name);
         }        
     }
 };
 
-void namingElves(Tree * tree);
 int neighborsFinder(Tree * tree, std::string name);
 Tree* nullParent(Tree* p);
 
 int main()
 {
-    std::vector<Tree*> forest(5);
+    std::vector<Tree*> forest(1);
 
     for(int k = 0; k < forest.size(); ++k)
     {
@@ -75,8 +77,6 @@ int main()
         {
             forest[k]->getBranch(i)->treeGenerator(2, 3);
         }
-
-        namingElves(forest[k]);
     }
 
     std::cout << "*********************************" << std::endl;
@@ -139,21 +139,4 @@ Tree* nullParent(Tree* p)
 {
     if(p->getParent()->getParent() == nullptr) return p;
     return nullParent(p->getParent());
-}
-
-void namingElves(Tree * tree)
-{
-    for(int i = 0; i < tree->getNumBranchs(); ++i)
-    {
-        std::string name;
-        std::cout << "Enter the name of the elf: ";
-        getline(std::cin, name);
-        tree->getBranch(i)->setElfName(name);
-        for (int j = 0; j < tree->getBranch(i)->getNumBranchs(); ++j)
-        {
-            std::cout << "Enter the name of the elf: ";
-            getline(std::cin, name);
-            tree->getBranch(i)->getBranch(j)->setElfName(name);
-        }
-    }
 }
