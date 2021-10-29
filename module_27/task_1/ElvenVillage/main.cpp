@@ -90,7 +90,7 @@ public:
 
 int main()
 {
-    std::vector<Tree*> forest(2);
+    std::vector<Tree*> forest(5);
 
     for(int k = 0; k < forest.size(); ++k)
     {
