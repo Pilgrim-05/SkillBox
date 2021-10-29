@@ -21,7 +21,6 @@ private:
     }
 
 public:
-    Tree() = default;
 
     Tree(Tree *parent)
     {
