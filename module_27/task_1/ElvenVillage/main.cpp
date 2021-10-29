@@ -57,16 +57,40 @@ public:
             std::cout << "Enter the name of the elf: ";
             getline(std::cin, name);
             branchs[i]->setElfName(name);
-        }        
+        }
+    }
+
+    int neighborsFinder(const std::string& name)
+    {
+        int counter = 0;
+        bool status = false;
+        if(branchs.empty()) return -1;
+        else
+        {
+            for(int i =0; i < branchs.size(); ++i)
+            {
+                if(branchs[i]->getElfName() == name) status = true;
+                if(branchs[i]->getElfName() != "None"
+                        && branchs[i]->getElfName() != name) ++counter;
+                for(int j =0; j < branchs[i]->getNumBranchs(); ++j)
+                {
+                    if(branchs[i]->getBranch(j)->getElfName() == name) status = true;
+                    if(branchs[i]->getBranch(j)->getElfName() != "None"
+                            && branchs[i]->getBranch(j)->getElfName() != name) ++counter;
+                }
+
+                if(status) return counter;
+                else counter = 0;
+            }
+        }
+
+        return -1;
     }
 };
 
-int neighborsFinder(Tree * tree, std::string name);
-Tree* nullParent(Tree* p);
-
 int main()
 {
-    std::vector<Tree*> forest(1);
+    std::vector<Tree*> forest(2);
 
     for(int k = 0; k < forest.size(); ++k)
     {
@@ -81,62 +105,19 @@ int main()
 
     std::cout << "*********************************" << std::endl;
 
-    std::cout << "Desired elf name : ";
+    std::cout << "Desired elf name: ";
     std::string name;
     getline(std::cin, name);
     int result = 0;
     for(int i = 0; i < forest.size(); ++i)
     {
-        result = neighborsFinder(forest[i], name);
-        if(result != -1) break;
-    }
-
-    if(result != -1)
-    {
-        std::cout << "This elf has " << result <<" neighbors " << std::endl;
-    }
-
-    return 0;
-}
-
-int neighborsFinder(Tree * tree, std::string name)
-{
-    if(name == "None") return -1;
-    int counter = 0;
-    for(int i = 0; i < tree->getNumBranchs(); ++i)
-    {
-        if(tree->getBranch(i)->getElfName() == name)
+        result = forest[i]->neighborsFinder(name);
+        if(result != -1)
         {
-            for (int j = 0; j < tree->getBranch(i)->getNumBranchs(); ++j)
-            {
-                if(tree->getBranch(i)->getBranch(j)->getElfName() != "None") ++counter;
-            }
-            return counter;
-        }else
-        {
-            Tree *tmp;
-            for (int j = 0; j < tree->getBranch(i)->getNumBranchs(); ++j)
-            {
-                if(tree->getBranch(i)->getBranch(j)->getElfName() == name)
-                {
-                    tmp = nullParent(tree->getBranch(i)->getBranch(j));
-                    if(tmp->getElfName() != "None") ++counter;
-                    for(int k = 0; k < tmp->getNumBranchs(); ++k)
-                    {
-                        if(tmp->getBranch(k)->getElfName() != "None" && tmp->getBranch(k)->getElfName() != name)
-                            ++counter;
-                    }
-                    return counter;
-                }
-            }
+            std::cout << "This elf has " << result <<" neighbors " << std::endl;
+            break;
         }
     }
 
-    return -1;
-}
-
-Tree* nullParent(Tree* p)
-{
-    if(p->getParent()->getParent() == nullptr) return p;
-    return nullParent(p->getParent());
+    return 0;
 }
