@@ -3,7 +3,6 @@
 #include <ctime>
 #include <cstdlib>
 
-
 class Tree
 {
 private:
@@ -16,22 +15,17 @@ private:
       elfName = name;
     }
 
+    std::string getElfName()
+    {
+      return elfName;
+    }
+
 public:
     Tree() = default;
 
     Tree(Tree *parent)
     {
       this->parent = parent;
-    }
-
-    std::string getElfName()
-    {
-      return elfName;
-    }
-
-    Tree* getParent()
-    {
-      return parent;
     }
 
     int getNumBranchs()
