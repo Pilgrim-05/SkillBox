@@ -2,27 +2,42 @@
 
 class Animal
 {
+protected:
+    std::string animalType;
 public:
+    std::string getType()
+    {
+        return animalType;
+    }
+
     virtual void voice(Animal*) = 0;
 };
 
 class Dog : public Animal
 {
 public:
+    Dog()
+    {
+        animalType = "dog";
+    }
 
     virtual void voice(Animal* a)
     {
 
-        std::cout << (this == a ? "Woof " : "Bark ");
+        std::cout << (this->getType() == a->getType() ? "Woof " : "Bark ");
     }
 };
 
 class Cat : public Animal
 {
 public:
+    Cat()
+    {
+        animalType = "cat";
+    }
     virtual void voice(Animal* a)
     {
-        std::cout << (this == a ? "Purr " : "Meow ");
+        std::cout << (this->getType() == a->getType() ? "Purr " : "Meow ");
     }
 };
 
