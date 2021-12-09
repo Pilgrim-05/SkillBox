@@ -3,25 +3,26 @@
 class Animal
 {
 public:
-    virtual void voice() = 0;
+    virtual void voice(Animal*) = 0;
 };
 
 class Dog : public Animal
 {
 public:
 
-    virtual void voice()
+    virtual void voice(Animal* a)
     {
-        std::cout << "Bark ";
+
+        std::cout << (this == a ? "Woof " : "Bark ");
     }
 };
 
 class Cat : public Animal
 {
 public:
-    virtual void voice()
+    virtual void voice(Animal* a)
     {
-        std::cout << "Meow ";
+        std::cout << (this == a ? "Purr " : "Meow ");
     }
 };
 
@@ -41,8 +42,8 @@ int main() {
 
 void meeting(Animal* a, Animal* b)
 {
-    a->voice();
-    b->voice();
+    a->voice(b);
+    b->voice(a);
     std::cout << std::endl;
 }
 
