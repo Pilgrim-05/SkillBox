@@ -65,9 +65,9 @@ public:
     }
 };
 
-shared_ptr_toy make_shared_toy(Toy& toy)
+shared_ptr_toy make_shared_toy(Toy* toy)
 {
-    shared_ptr_toy ptr(&toy);
+    shared_ptr_toy ptr(toy);
     return ptr;
 }
 
@@ -79,7 +79,7 @@ shared_ptr_toy make_shared_toy(const std::string &name)
 
 int main()
 {
-    shared_ptr_toy ptr2;
+    shared_ptr_toy ptr2 = make_shared_toy(new Toy("ball"));
     {
     Toy *a = new Toy("Tedy");
     shared_ptr_toy ptr1(a);
