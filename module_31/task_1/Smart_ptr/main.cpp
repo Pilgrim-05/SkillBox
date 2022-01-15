@@ -6,31 +6,33 @@ class Toy
 private:
     std::string name;
 public:
-    Toy(std::string name) : name(name) {std::cout << "Created by " << name << std::endl;};
+    Toy(std::string name) : name(name) {std::cout << "Created by\t" << name << std::endl;};
     Toy() : Toy("someToy"){};
 
     std::string getName(){return name;}
 
-    ~Toy(){std::cout << "Destroyed " << name << std::endl;}
+    ~Toy(){std::cout << "Destroyed\t" <<  name << std::endl;}
 };
 
 class shared_ptr_toy
 {
 private:
     Toy* m_toy;
-    int counter = 0;
+    int* m_counter;
 public:
-    shared_ptr_toy() : m_toy(nullptr){}
+    shared_ptr_toy() : m_toy(nullptr), m_counter(nullptr){}
     shared_ptr_toy(Toy* toy)
     {
         m_toy = new Toy(*toy);
-        ++counter;
+        m_counter = new int(0);
+        ++(*m_counter);
     }
 
     shared_ptr_toy(const shared_ptr_toy& other)
     {
         m_toy = new Toy(*other.m_toy);
-        ++counter;
+        m_counter = other.m_counter;
+        ++(*m_counter);
     }
 
     shared_ptr_toy& operator=(const shared_ptr_toy& other)
@@ -39,33 +41,51 @@ public:
             return *this;
 
         if(m_toy != nullptr)
+        {
             delete m_toy;
+            delete m_counter;
+        }
 
         m_toy = new Toy(*other.m_toy);
-        ++counter;
+        m_counter = other.m_counter;
+        ++(*m_counter);
+
         return *this;
     }
 
     ~shared_ptr_toy()
     {
-        if(counter > 0)
-            --counter;
-        if(counter == 1 && m_toy != nullptr)
+        if(*m_counter > 0)
+            --(*m_counter);
+        if(*m_counter == 0)
         {
             delete m_toy;
+            delete m_counter;
         }
-    };
+    }
 };
+
+shared_ptr_toy make_shared_toy(Toy& toy)
+{
+    shared_ptr_toy ptr(&toy);
+    return ptr;
+}
+
+shared_ptr_toy make_shared_toy(const std::string &name)
+{
+    shared_ptr_toy ptr(new Toy(name));
+    return ptr;
+}
 
 int main()
 {
     shared_ptr_toy ptr2;
-    shared_ptr_toy ptr1(new Toy("doll"));
-
     {
-        shared_ptr_toy ptr(new Toy("ball"));
-        ptr1 = ptr;
+    Toy *a = new Toy("Tedy");
+    shared_ptr_toy ptr1(a);
+    ptr2 = ptr1;
     }
+    std::cout << "********" << std::endl;
 
     return 0;
 }
