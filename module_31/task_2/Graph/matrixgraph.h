@@ -8,7 +8,7 @@ class MatrixGraph : public IGraph
 private:
     int vertices = 0;
     std::string type = "Matrix";
-    std::vector<int, std::vector<int>> grph;
+    std::vector<std::vector<int>> grph;
 
 public:
     MatrixGraph();
