@@ -7,7 +7,7 @@
 class ListGraph : public IGraph
 {
 private:
-    int vertices = 0;
+    //int vertices = 0;
     std::string type = "List";
     std::map<int, std::vector<int>> grph;
 

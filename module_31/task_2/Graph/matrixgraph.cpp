@@ -19,7 +19,7 @@ std::string MatrixGraph::getType(){ return type;}
 
 void MatrixGraph::AddEdge(int from, int to){}
 
-int MatrixGraph::VerticesCount() const { return vertices;}
+int MatrixGraph::VerticesCount() const { return grph.size();}
 
 void MatrixGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const {}
 

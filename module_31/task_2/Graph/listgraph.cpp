@@ -17,10 +17,21 @@ ListGraph::~ListGraph(){}
 
 std::string ListGraph::getType() {return type;}
 
-void ListGraph::AddEdge(int from, int to) {}
+void ListGraph::AddEdge(int from, int to)
+{
+    grph[to];
+    grph[from].push_back(to);
+}
 
-int ListGraph::VerticesCount() const {return vertices;}
+int ListGraph::VerticesCount() const {return grph.size();}
 
-void ListGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const {}
+void ListGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const
+{
+    if(grph.find(vertex) != grph.end())
+        vertices = grph.at(vertex);
+}
 
-void ListGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const {}
+void ListGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const
+{
+
+}

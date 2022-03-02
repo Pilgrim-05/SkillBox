@@ -6,7 +6,7 @@
 class MatrixGraph : public IGraph
 {
 private:
-    int vertices = 0;
+    //int vertices = 0;
     std::string type = "Matrix";
     std::vector<std::vector<int>> grph;
 
