@@ -13,11 +13,13 @@ private:
 public:
     MatrixGraph();
 
-    MatrixGraph(IGraph *_oth);
+    MatrixGraph(IGraph *oth);
 
     virtual ~MatrixGraph();
 
     std::string getType();
+
+    auto getGraph();
 
     void AddEdge(int from, int to); // Метод принимает вершины начала и конца ребра и добавляет ребро
 

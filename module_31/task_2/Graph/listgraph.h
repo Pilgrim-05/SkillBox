@@ -14,11 +14,13 @@ private:
 public:
     ListGraph();
 
-    ListGraph(IGraph *_oth);
+    ListGraph(IGraph *oth);
 
     virtual ~ListGraph();
 
     std::string getType();
+
+    auto getGraph();
 
     void AddEdge(int from, int to); // Метод принимает вершины начала и конца ребра и добавляет ребро
 

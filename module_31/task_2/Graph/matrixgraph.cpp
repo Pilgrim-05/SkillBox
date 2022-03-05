@@ -2,12 +2,12 @@
 
 MatrixGraph::MatrixGraph(){}
 
-MatrixGraph::MatrixGraph(IGraph *_oth)
+MatrixGraph::MatrixGraph(IGraph *oth)
 {
-    if(_oth->getType() == "Matrix")
+    if(oth->getType() == "Matrix")
     {
         std::cout << "Matrix in Matrix" <<std::endl;
-    }else if(_oth->getType() == "List")
+    }else if(oth->getType() == "List")
     {
         std::cout << "List in Matrix" <<std::endl;
     }
