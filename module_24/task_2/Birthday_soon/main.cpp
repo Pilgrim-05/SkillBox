@@ -2,6 +2,7 @@
 #include <vector>
 #include <ctime>
 #include <iomanip>
+#include <limits>
 
 using namespace std;
 
@@ -38,7 +39,7 @@ void addFriend(vector<person> &vec)
         tmp.birthDate = *localtime(&t);
         cout << "Friend's date of birth in format (YYYY/MM/DD): ";
         cin >> get_time(&tmp.birthDate, "%Y/%m/%d");
-        cin.ignore(32767, '\n');
+        cin.ignore(std::numeric_limits<int>::max(), '\n');
         vec.push_back(tmp);
         cout << "Enter your friend's name: ";
         getline(cin, name);

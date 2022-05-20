@@ -7,10 +7,9 @@
 class ListGraph : public IGraph
 {
 private:
-    //int vertices = 0;
-    std::string type = "List";
+    const std::string TYPE = "List";
     std::map<int, std::vector<int>> grph;
-
+    void copyGraph(IGraph *oth);
 public:
     ListGraph();
 
@@ -19,8 +18,6 @@ public:
     virtual ~ListGraph();
 
     std::string getType();
-
-    auto getGraph();
 
     void AddEdge(int from, int to); // Метод принимает вершины начала и конца ребра и добавляет ребро
 

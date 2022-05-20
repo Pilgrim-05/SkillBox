@@ -6,10 +6,9 @@
 class MatrixGraph : public IGraph
 {
 private:
-    //int vertices = 0;
-    std::string type = "Matrix";
+    const std::string TYPE = "Matrix";
     std::vector<std::vector<int>> grph;
-
+    void copyGraph(IGraph *oth);
 public:
     MatrixGraph();
 
@@ -18,8 +17,6 @@ public:
     virtual ~MatrixGraph();
 
     std::string getType();
-
-    auto getGraph();
 
     void AddEdge(int from, int to); // Метод принимает вершины начала и конца ребра и добавляет ребро
 

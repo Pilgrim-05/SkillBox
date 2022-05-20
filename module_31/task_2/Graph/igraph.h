@@ -9,13 +9,11 @@ public:
 
     virtual ~IGraph() {}
 
-    IGraph() {};
+    IGraph(){};
 
-    IGraph(IGraph *_oth) {std::cout << _oth->getType() << std::endl;};
+    IGraph(IGraph *_oth){};
 
     virtual std::string getType() = 0;
-
-    virtual auto getGraph() = 0;
 
     virtual void AddEdge(int from, int to) = 0; // Метод принимает вершины начала и конца ребра и добавляет ребро
 

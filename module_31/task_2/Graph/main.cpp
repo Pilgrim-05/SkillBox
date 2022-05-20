@@ -3,31 +3,34 @@
 #include "listgraph.h"
 #include "matrixgraph.h"
 
-
+using std::cin;
 using std::cout;
 using std::endl;
 
 int main()
 {
-    ListGraph lst(new ListGraph);
-    ListGraph lst1(new MatrixGraph);
-
+    ListGraph lst;
     lst.AddEdge(0,1);
     lst.AddEdge(0,2);
     lst.AddEdge(1,2);
-    std::vector<int> v;// = {1, 2, 0, 5, 7, 9};
-    lst.GetNextVertices(0, v);
+    lst.AddEdge(1,3);
 
-//    cout << lst.VerticesCount() << endl;
+    ListGraph lst1(lst);
 
-//    lst.GetPrevVertices(0, v);
+    cout << lst.VerticesCount() << endl;
+    cout << lst1.VerticesCount() << endl;
+
+    std::vector<int> v;
+    lst1.GetNextVertices(1, v);
+
+//    lst1.GetPrevVertices(1, v);
 
     for(auto at : v)
         cout << at << " ";
     cout << endl;
 
-    MatrixGraph mtrx(new ListGraph);
-    MatrixGraph mtrx1(new MatrixGraph);
+//    MatrixGraph mtrx(new ListGraph);
+//    MatrixGraph mtrx1(new MatrixGraph);
 
     return 0;
 }

@@ -5,31 +5,33 @@ ListGraph::ListGraph(){}
 
 ListGraph::ListGraph(IGraph *oth)
 {
-    if(oth->getType() == "Matrix")
-    {
-        std::cout << "Matrix in List" <<std::endl;
-        grph.clear();
-
-
-
-    }else if(oth->getType() == "List")
-    {
-        std::cout << "List in List" <<std::endl;
-        grph.clear();
-
-
-        oth->getGraph().begin();
-    }
+    copyGraph(oth);
 }
 
 ListGraph::~ListGraph(){}
 
-std::string ListGraph::getType() {return type;}
+std::string ListGraph::getType() {return TYPE;}
 
-auto ListGraph::getGraph()
+void ListGraph::copyGraph(IGraph *oth)
 {
-    return grph;
+    if(oth->getType() == "Matrix")
+    {
+        MatrixGraph *tmp;
+        std::cout << "Matrix in List" <<std::endl;
+        grph.clear();
+        tmp = (MatrixGraph*)oth;
+
+
+    }else if(oth->getType() == "List")
+    {
+        ListGraph *tmp;
+        std::cout << "List in List" <<std::endl;
+        grph.clear();
+        tmp = (ListGraph*)oth;
+        grph = tmp->grph;
+    }
 }
+
 
 void ListGraph::AddEdge(int from, int to)
 {
