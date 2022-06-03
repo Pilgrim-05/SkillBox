@@ -9,6 +9,7 @@ private:
     const std::string TYPE = "Matrix";
     std::vector<std::vector<int>> grph;
     void copyGraph(IGraph *oth);
+
 public:
     MatrixGraph();
 

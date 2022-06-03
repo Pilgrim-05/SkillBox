@@ -10,10 +10,13 @@ private:
     const std::string TYPE = "List";
     std::map<int, std::vector<int>> grph;
     void copyGraph(IGraph *oth);
+
 public:
     ListGraph();
 
     ListGraph(IGraph *oth);
+
+    ListGraph& operator=(const ListGraph &oth);
 
     virtual ~ListGraph();
 

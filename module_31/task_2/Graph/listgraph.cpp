@@ -17,25 +17,41 @@ void ListGraph::copyGraph(IGraph *oth)
     if(oth->getType() == "Matrix")
     {
         MatrixGraph *tmp;
-        std::cout << "Matrix in List" <<std::endl;
-        grph.clear();
         tmp = (MatrixGraph*)oth;
-
+        if(tmp->VerticesCount() != 0)
+        {
+            for(int i = 0; i < tmp->VerticesCount(); ++i)
+            {
+                std::vector<int> tmpVec;
+                tmp->GetNextVertices(i, tmpVec);
+                grph[i] = tmpVec;
+            }
+        }
 
     }else if(oth->getType() == "List")
     {
         ListGraph *tmp;
-        std::cout << "List in List" <<std::endl;
-        grph.clear();
         tmp = (ListGraph*)oth;
         grph = tmp->grph;
     }
 }
 
+ListGraph &ListGraph::operator=(const ListGraph &oth)
+{
+    if(this != &oth)
+    {
+        grph.clear();
+        grph = oth.grph;
+    }
+    return *this;
+}
 
 void ListGraph::AddEdge(int from, int to)
 {
-    grph[to];
+    int max = from > to ? from : to;
+    for(int i = grph.size(); i <= max; ++i)
+        grph[i];
+
     grph[from].push_back(to);
 }
 

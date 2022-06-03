@@ -30,7 +30,22 @@ void MatrixGraph::copyGraph(IGraph *oth)
     }
 }
 
-void MatrixGraph::AddEdge(int from, int to){}
+void MatrixGraph::AddEdge(int from, int to)
+{
+    int max = from > to ? from : to;
+
+    if(grph.size() < max)
+    {
+        grph.resize(max+1);
+        for(int i = 0; i <= max; ++i)
+        {
+            grph[i].resize(max+1);
+        }
+    }
+
+    grph[from][to] = 1;
+
+}
 
 int MatrixGraph::VerticesCount() const { return grph.size();}
 
