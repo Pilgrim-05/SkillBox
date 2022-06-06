@@ -5,44 +5,64 @@ ListGraph::ListGraph(){}
 
 ListGraph::ListGraph(IGraph *oth)
 {
-    copyGraph(oth);
-}
 
-ListGraph::~ListGraph(){}
-
-std::string ListGraph::getType() {return TYPE;}
-
-void ListGraph::copyGraph(IGraph *oth)
-{
     if(oth->getType() == "Matrix")
     {
-        MatrixGraph *tmp;
-        tmp = (MatrixGraph*)oth;
+        MatrixGraph *tmp = static_cast<MatrixGraph*>(oth);
         if(tmp->VerticesCount() != 0)
         {
             for(int i = 0; i < tmp->VerticesCount(); ++i)
             {
                 std::vector<int> tmpVec;
-                tmp->GetNextVertices(i, tmpVec);
+                tmp->getLeaves(i, tmpVec);
                 grph[i] = tmpVec;
             }
         }
 
     }else if(oth->getType() == "List")
     {
-        ListGraph *tmp;
-        tmp = (ListGraph*)oth;
+        ListGraph *tmp = static_cast<ListGraph*>(oth);
         grph = tmp->grph;
     }
 }
 
-ListGraph &ListGraph::operator=(const ListGraph &oth)
+ListGraph::~ListGraph(){}
+
+std::string ListGraph::getType() {return TYPE;}
+
+void ListGraph::getLeaves(int vertex, std::vector<int> &leaves)
 {
-    if(this != &oth)
+    if(grph.find(vertex) != grph.end())
+        leaves = grph.at(vertex);
+}
+
+ListGraph &ListGraph::operator=(IGraph &oth)
+{
+    if(oth.getType() == "Matrix")
     {
-        grph.clear();
-        grph = oth.grph;
+        MatrixGraph *tmp = static_cast<MatrixGraph*>(&oth);
+        if(tmp->VerticesCount() != 0)
+        {
+            grph.clear();
+            for(int i = 0; i < tmp->VerticesCount(); ++i)
+            {
+                std::vector<int> tmpVec;
+                tmp->getLeaves(i, tmpVec);
+                grph[i] = tmpVec;
+            }
+        }
+
+    }else if(oth.getType() == "List")
+    {
+        ListGraph *tmp = static_cast<ListGraph*>(&oth);
+        if((this != &oth))
+        {
+            grph.clear();
+            grph = tmp->grph;
+        }
+
     }
+
     return *this;
 }
 

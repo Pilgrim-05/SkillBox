@@ -14,8 +14,7 @@ int main()
     lst.AddEdge(0,2);
     lst.AddEdge(1,2);
     lst.AddEdge(1,3);
-//    lst.AddEdge(3,0);
-//    lst.AddEdge(5,8);
+    lst.AddEdge(3,0);
 
     ListGraph lst1(&lst);
 
@@ -28,8 +27,15 @@ int main()
     mg.AddEdge(3,2);
     mg.AddEdge(2,4);
 
-    ListGraph lst2(&mg);
-    //lst2 = lst;
+    ListGraph lst2;//(&mg);
+    lst2 = lst;
+    //lst2 = mg;
+
+    MatrixGraph mg1;//(&lst);
+    mg1 = mg;
+    //mg1 = lst;
+
+
 
     cout << lst.VerticesCount() << endl;
     cout << lst1.VerticesCount() << endl;
@@ -37,7 +43,6 @@ int main()
 
     std::vector<int> v;
     lst1.GetNextVertices(2, v);
-
 //    lst1.GetPrevVertices(1, v);
 
     for(auto at : v)

@@ -4,37 +4,84 @@ MatrixGraph::MatrixGraph(){}
 
 MatrixGraph::MatrixGraph(IGraph *oth)
 {
-    copyGraph(oth);
+    if(oth->getType() == "Matrix")
+    {
+        MatrixGraph *tmp = static_cast<MatrixGraph*>(oth);
+        grph = tmp->grph;
+
+    }else if(oth->getType() == "List")
+    {
+        ListGraph *tmp = static_cast<ListGraph*>(oth);
+        int size = tmp->VerticesCount();
+
+        grph.resize(size);
+        for(int i = 0; i <= size; ++i)
+        {
+            grph[i].resize(size);
+            std::vector<int> v;
+            tmp->getLeaves(i, v);
+            for(auto at : v)
+            {
+                grph[i][at] = 1;
+            }
+        }
+    }
+}
+
+MatrixGraph &MatrixGraph::operator=(IGraph &oth)
+{
+    if(oth.getType() == "Matrix")
+    {
+        if(this != &oth)
+        {
+            grph.clear();
+            MatrixGraph *tmp = static_cast<MatrixGraph*>(&oth);
+            grph = tmp->grph;
+        }
+
+    }else if(oth.getType() == "List")
+    {
+        ListGraph *tmp = static_cast<ListGraph*>(&oth);
+        int size = tmp->VerticesCount();
+        grph.clear();
+        grph.resize(size);
+        for(int i = 0; i <= size; ++i)
+        {
+            grph[i].resize(size);
+            std::vector<int> v;
+            tmp->getLeaves(i, v);
+            for(auto at : v)
+            {
+                grph[i][at] = 1;
+            }
+        }
+    }
+
+    return *this;
 }
 
 MatrixGraph::~MatrixGraph(){}
 
 std::string MatrixGraph::getType(){ return TYPE;}
 
-void MatrixGraph::copyGraph(IGraph *oth)
+void MatrixGraph::getLeaves(int vertex, std::vector<int> &leaves)
 {
-    if(oth->getType() == "Matrix")
+    if(grph.size() >= vertex)
     {
-        MatrixGraph *tmp;
-        std::cout << "Matrix in List" <<std::endl;
-        grph.clear();
-        tmp = (MatrixGraph*)oth;
-        grph = tmp->grph;
-
-    }else if(oth->getType() == "List")
-    {
-        ListGraph *tmp;
-        std::cout << "List in List" <<std::endl;
-        grph.clear();
-        tmp = (ListGraph*)oth;
+        for(int i = 0; i < grph.size(); ++i)
+        {
+            if(grph[vertex][i] != 0)
+                leaves.push_back(i);
+        }
     }
+
 }
 
 void MatrixGraph::AddEdge(int from, int to)
 {
     int max = from > to ? from : to;
 
-    if(grph.size() < max)
+    if(grph.size() <= max)
     {
         grph.resize(max+1);
         for(int i = 0; i <= max; ++i)

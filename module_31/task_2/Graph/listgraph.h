@@ -9,14 +9,14 @@ class ListGraph : public IGraph
 private:
     const std::string TYPE = "List";
     std::map<int, std::vector<int>> grph;
-    void copyGraph(IGraph *oth);
-
+    friend class MatrixGraph;
+    void getLeaves(int vertex, std::vector<int> &leaves);
 public:
     ListGraph();
 
     ListGraph(IGraph *oth);
 
-    ListGraph& operator=(const ListGraph &oth);
+    ListGraph& operator=(IGraph &oth);
 
     virtual ~ListGraph();
 

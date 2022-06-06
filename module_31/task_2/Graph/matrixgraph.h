@@ -8,12 +8,15 @@ class MatrixGraph : public IGraph
 private:
     const std::string TYPE = "Matrix";
     std::vector<std::vector<int>> grph;
-    void copyGraph(IGraph *oth);
+    friend class ListGraph;
+    void getLeaves(int vertex, std::vector<int> &leaves);
 
 public:
     MatrixGraph();
 
     MatrixGraph(IGraph *oth);
+
+    MatrixGraph& operator=(IGraph &oth);
 
     virtual ~MatrixGraph();
 
