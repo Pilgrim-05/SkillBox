@@ -29,11 +29,11 @@ int main()
 
     ListGraph lst2;//(&mg);
     lst2 = lst;
-    //lst2 = mg;
+    lst2 = mg;
 
     MatrixGraph mg1;//(&lst);
     mg1 = mg;
-    //mg1 = lst;
+    mg1 = lst;
 
 
 
@@ -42,8 +42,8 @@ int main()
     cout << mg.VerticesCount() << endl;
 
     std::vector<int> v;
-    lst1.GetNextVertices(2, v);
-//    lst1.GetPrevVertices(1, v);
+//    lst1.GetNextVertices(2, v);
+    lst1.GetPrevVertices(3, v);
 
     for(auto at : v)
         cout << at << " ";

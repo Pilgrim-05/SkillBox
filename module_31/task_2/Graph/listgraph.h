@@ -7,20 +7,20 @@
 class ListGraph : public IGraph
 {
 private:
-    const std::string TYPE = "List";
     std::map<int, std::vector<int>> grph;
-    friend class MatrixGraph;
-    void getLeaves(int vertex, std::vector<int> &leaves);
+
 public:
     ListGraph();
 
     ListGraph(IGraph *oth);
 
+    ListGraph& operator=(const ListGraph &oth);
+
     ListGraph& operator=(IGraph &oth);
 
     virtual ~ListGraph();
 
-    std::string getType();
+    void getLeaves(int vertex, std::vector<int> &leaves);
 
     void AddEdge(int from, int to); // Метод принимает вершины начала и конца ребра и добавляет ребро
 

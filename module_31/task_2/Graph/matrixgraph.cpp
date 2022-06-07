@@ -4,22 +4,22 @@ MatrixGraph::MatrixGraph(){}
 
 MatrixGraph::MatrixGraph(IGraph *oth)
 {
-    if(oth->getType() == "Matrix")
-    {
-        MatrixGraph *tmp = static_cast<MatrixGraph*>(oth);
-        grph = tmp->grph;
+    MatrixGraph *tmpMatrix = dynamic_cast<MatrixGraph*>(oth);
+    if(tmpMatrix)
+    {        
+        grph = tmpMatrix->grph;
+    }
 
-    }else if(oth->getType() == "List")
+    ListGraph *tmpList = dynamic_cast<ListGraph*>(oth);
+    if(tmpList)
     {
-        ListGraph *tmp = static_cast<ListGraph*>(oth);
-        int size = tmp->VerticesCount();
-
+        int size = tmpList->VerticesCount();
         grph.resize(size);
         for(int i = 0; i <= size; ++i)
         {
             grph[i].resize(size);
             std::vector<int> v;
-            tmp->getLeaves(i, v);
+            tmpList->getLeaves(i, v);
             for(auto at : v)
             {
                 grph[i][at] = 1;
@@ -28,31 +28,35 @@ MatrixGraph::MatrixGraph(IGraph *oth)
     }
 }
 
+MatrixGraph &MatrixGraph::operator=(const MatrixGraph &oth)
+{
+    if(this != &oth)
+    {
+        grph.clear();
+        grph = oth.grph;
+    }
+   return *this;
+}
+
 MatrixGraph &MatrixGraph::operator=(IGraph &oth)
 {
-    if(oth.getType() == "Matrix")
+    ListGraph *tmpList = dynamic_cast<ListGraph*>(&oth);
+    if(tmpList)
     {
-        if(this != &oth)
+        if(tmpList->VerticesCount() != 0)
         {
+            int size = tmpList->VerticesCount();
             grph.clear();
-            MatrixGraph *tmp = static_cast<MatrixGraph*>(&oth);
-            grph = tmp->grph;
-        }
-
-    }else if(oth.getType() == "List")
-    {
-        ListGraph *tmp = static_cast<ListGraph*>(&oth);
-        int size = tmp->VerticesCount();
-        grph.clear();
-        grph.resize(size);
-        for(int i = 0; i <= size; ++i)
-        {
-            grph[i].resize(size);
-            std::vector<int> v;
-            tmp->getLeaves(i, v);
-            for(auto at : v)
+            grph.resize(size);
+            for(int i = 0; i <= size; ++i)
             {
-                grph[i][at] = 1;
+                grph[i].resize(size);
+                std::vector<int> v;
+                tmpList->getLeaves(i, v);
+                for(auto at : v)
+                {
+                    grph[i][at] = 1;
+                }
             }
         }
     }
@@ -61,8 +65,6 @@ MatrixGraph &MatrixGraph::operator=(IGraph &oth)
 }
 
 MatrixGraph::~MatrixGraph(){}
-
-std::string MatrixGraph::getType(){ return TYPE;}
 
 void MatrixGraph::getLeaves(int vertex, std::vector<int> &leaves)
 {
@@ -91,7 +93,6 @@ void MatrixGraph::AddEdge(int from, int to)
     }
 
     grph[from][to] = 1;
-
 }
 
 int MatrixGraph::VerticesCount() const { return grph.size();}

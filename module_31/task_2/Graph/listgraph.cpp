@@ -5,30 +5,28 @@ ListGraph::ListGraph(){}
 
 ListGraph::ListGraph(IGraph *oth)
 {
-
-    if(oth->getType() == "Matrix")
+    MatrixGraph *tmpMatrix = dynamic_cast<MatrixGraph*>(oth);
+    if(tmpMatrix)
     {
-        MatrixGraph *tmp = static_cast<MatrixGraph*>(oth);
-        if(tmp->VerticesCount() != 0)
+        if(tmpMatrix->VerticesCount() != 0)
         {
-            for(int i = 0; i < tmp->VerticesCount(); ++i)
+            for(int i = 0; i < tmpMatrix->VerticesCount(); ++i)
             {
                 std::vector<int> tmpVec;
-                tmp->getLeaves(i, tmpVec);
+                tmpMatrix->getLeaves(i, tmpVec);
                 grph[i] = tmpVec;
             }
         }
+    }
 
-    }else if(oth->getType() == "List")
+    ListGraph *tmpList = dynamic_cast<ListGraph*>(oth);
+    if(tmpList)
     {
-        ListGraph *tmp = static_cast<ListGraph*>(oth);
-        grph = tmp->grph;
+        grph = tmpList->grph;
     }
 }
 
 ListGraph::~ListGraph(){}
-
-std::string ListGraph::getType() {return TYPE;}
 
 void ListGraph::getLeaves(int vertex, std::vector<int> &leaves)
 {
@@ -36,31 +34,32 @@ void ListGraph::getLeaves(int vertex, std::vector<int> &leaves)
         leaves = grph.at(vertex);
 }
 
+ListGraph &ListGraph::operator=(const ListGraph &oth)
+{
+    if((this != &oth))
+    {
+        grph.clear();
+        grph = oth.grph;
+    }
+
+    return *this;
+}
+
 ListGraph &ListGraph::operator=(IGraph &oth)
 {
-    if(oth.getType() == "Matrix")
+    MatrixGraph *tmpMatrix = dynamic_cast<MatrixGraph*>(&oth);
+    if(tmpMatrix)
     {
-        MatrixGraph *tmp = static_cast<MatrixGraph*>(&oth);
-        if(tmp->VerticesCount() != 0)
+        if(tmpMatrix->VerticesCount() != 0)
         {
             grph.clear();
-            for(int i = 0; i < tmp->VerticesCount(); ++i)
+            for(int i = 0; i < tmpMatrix->VerticesCount(); ++i)
             {
                 std::vector<int> tmpVec;
-                tmp->getLeaves(i, tmpVec);
+                tmpMatrix->getLeaves(i, tmpVec);
                 grph[i] = tmpVec;
             }
         }
-
-    }else if(oth.getType() == "List")
-    {
-        ListGraph *tmp = static_cast<ListGraph*>(&oth);
-        if((this != &oth))
-        {
-            grph.clear();
-            grph = tmp->grph;
-        }
-
     }
 
     return *this;
@@ -95,7 +94,5 @@ void ListGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const
 
                 vertices.push_back(it->first);
         }
-
     }
-
 }

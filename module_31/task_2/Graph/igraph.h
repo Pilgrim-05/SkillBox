@@ -13,8 +13,6 @@ public:
 
     IGraph(IGraph *_oth){};
 
-    virtual std::string getType() = 0;
-
     virtual void AddEdge(int from, int to) = 0; // Метод принимает вершины начала и конца ребра и добавляет ребро
 
     virtual int VerticesCount() const = 0; // Метод должен считать текущее количество вершин

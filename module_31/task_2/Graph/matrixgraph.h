@@ -6,21 +6,20 @@
 class MatrixGraph : public IGraph
 {
 private:
-    const std::string TYPE = "Matrix";
     std::vector<std::vector<int>> grph;
-    friend class ListGraph;
-    void getLeaves(int vertex, std::vector<int> &leaves);
 
 public:
     MatrixGraph();
 
     MatrixGraph(IGraph *oth);
 
+    MatrixGraph& operator=(const MatrixGraph &oth);
+
     MatrixGraph& operator=(IGraph &oth);
 
     virtual ~MatrixGraph();
 
-    std::string getType();
+    void getLeaves(int vertex, std::vector<int> &leaves);
 
     void AddEdge(int from, int to); // Метод принимает вершины начала и конца ребра и добавляет ребро
 
@@ -31,6 +30,5 @@ public:
 
     void GetPrevVertices(int vertex, std::vector<int> &vertices) const; // Для конкретной вершины метод выводит в вектор “вершины”
                                                                                     // все вершины, из которых можно дойти по ребру в данную
-
 };
 
