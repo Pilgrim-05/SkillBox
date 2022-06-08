@@ -1,5 +1,7 @@
 #include <algorithm>
+#include <set>
 #include "listgraph.h"
+#include <iterator>
 
 ListGraph::ListGraph(){}
 
@@ -28,25 +30,15 @@ ListGraph::ListGraph(IGraph *oth)
 
 ListGraph::~ListGraph(){}
 
-void ListGraph::getLeaves(int vertex, std::vector<int> &leaves)
-{
-    if(grph.find(vertex) != grph.end())
-        leaves = grph.at(vertex);
-}
-
-ListGraph &ListGraph::operator=(const ListGraph &oth)
-{
-    if((this != &oth))
-    {
-        grph.clear();
-        grph = oth.grph;
-    }
-
-    return *this;
-}
-
 ListGraph &ListGraph::operator=(IGraph &oth)
 {
+    ListGraph *tmpList = dynamic_cast<ListGraph*>(&oth);
+    if(tmpList && (this != tmpList))
+    {
+        grph.clear();
+        grph = tmpList->grph;
+    }
+
     MatrixGraph *tmpMatrix = dynamic_cast<MatrixGraph*>(&oth);
     if(tmpMatrix)
     {
@@ -65,6 +57,12 @@ ListGraph &ListGraph::operator=(IGraph &oth)
     return *this;
 }
 
+void ListGraph::getLeaves(int vertex, std::vector<int> &leaves)
+{
+    if(grph.find(vertex) != grph.end())
+        leaves = grph.at(vertex);
+}
+
 void ListGraph::AddEdge(int from, int to)
 {
     int max = from > to ? from : to;
@@ -78,8 +76,27 @@ int ListGraph::VerticesCount() const {return grph.size();}
 
 void ListGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const
 {
-    if(grph.find(vertex) != grph.end())
-        vertices = grph.at(vertex);
+    int tmp = vertex;
+    std::set<int> st;
+
+    if(grph.find(tmp) != grph.end())
+    {
+        for(auto v : grph.find(tmp)->second)
+            st.insert(v);
+
+        for(auto it = st.begin(); it != st.end(); ++it)
+        {
+            tmp = *it;
+            if(grph.find(tmp) != grph.end())
+                for(auto v : grph.find(tmp)->second)
+                    st.insert(v);
+        }
+    }
+
+    for(auto it = st.begin(); it != st.end(); ++it)
+    {
+        vertices.push_back(*it);
+    }
 }
 
 void ListGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const

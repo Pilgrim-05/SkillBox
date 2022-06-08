@@ -4,7 +4,7 @@
 #include "igraph.h"
 #include "matrixgraph.h"
 
-class ListGraph : public IGraph
+class ListGraph : public virtual IGraph
 {
 private:
     std::map<int, std::vector<int>> grph;
@@ -14,11 +14,9 @@ public:
 
     ListGraph(IGraph *oth);
 
-    ListGraph& operator=(const ListGraph &oth);
-
-    ListGraph& operator=(IGraph &oth);
-
     virtual ~ListGraph();
+
+    ListGraph& operator=(IGraph &oth);    
 
     void getLeaves(int vertex, std::vector<int> &leaves);
 

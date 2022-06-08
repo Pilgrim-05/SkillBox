@@ -3,7 +3,7 @@
 #include "igraph.h"
 #include "listgraph.h"
 
-class MatrixGraph : public IGraph
+class MatrixGraph : public virtual IGraph
 {
 private:
     std::vector<std::vector<int>> grph;
@@ -13,11 +13,9 @@ public:
 
     MatrixGraph(IGraph *oth);
 
-    MatrixGraph& operator=(const MatrixGraph &oth);
-
-    MatrixGraph& operator=(IGraph &oth);
-
     virtual ~MatrixGraph();
+
+    MatrixGraph& operator=(IGraph &oth);    
 
     void getLeaves(int vertex, std::vector<int> &leaves);
 

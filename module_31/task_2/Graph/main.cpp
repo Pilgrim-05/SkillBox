@@ -35,15 +35,13 @@ int main()
     mg1 = mg;
     mg1 = lst;
 
-
-
     cout << lst.VerticesCount() << endl;
     cout << lst1.VerticesCount() << endl;
     cout << mg.VerticesCount() << endl;
 
     std::vector<int> v;
-//    lst1.GetNextVertices(2, v);
-    lst1.GetPrevVertices(3, v);
+    lst1.GetNextVertices(1, v);
+    //lst1.GetPrevVertices(3, v);
 
     for(auto at : v)
         cout << at << " ";

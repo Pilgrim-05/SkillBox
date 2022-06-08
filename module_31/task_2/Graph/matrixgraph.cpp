@@ -28,18 +28,17 @@ MatrixGraph::MatrixGraph(IGraph *oth)
     }
 }
 
-MatrixGraph &MatrixGraph::operator=(const MatrixGraph &oth)
-{
-    if(this != &oth)
-    {
-        grph.clear();
-        grph = oth.grph;
-    }
-   return *this;
-}
+MatrixGraph::~MatrixGraph(){}
 
 MatrixGraph &MatrixGraph::operator=(IGraph &oth)
 {
+    MatrixGraph *tmpMatrix = dynamic_cast<MatrixGraph*>(&oth);
+    if(tmpMatrix && (this != tmpMatrix))
+    {
+        grph.clear();
+        grph = tmpMatrix->grph;
+    }
+
     ListGraph *tmpList = dynamic_cast<ListGraph*>(&oth);
     if(tmpList)
     {
@@ -63,8 +62,6 @@ MatrixGraph &MatrixGraph::operator=(IGraph &oth)
 
     return *this;
 }
-
-MatrixGraph::~MatrixGraph(){}
 
 void MatrixGraph::getLeaves(int vertex, std::vector<int> &leaves)
 {
