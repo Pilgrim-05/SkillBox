@@ -47,7 +47,7 @@ MatrixGraph &MatrixGraph::operator=(IGraph &oth)
             int size = tmpList->VerticesCount();
             grph.clear();
             grph.resize(size);
-            for(int i = 0; i <= size; ++i)
+            for(int i = 0; i < size; ++i)
             {
                 grph[i].resize(size);
                 std::vector<int> v;

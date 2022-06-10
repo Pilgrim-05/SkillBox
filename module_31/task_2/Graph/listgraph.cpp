@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <set>
 #include "listgraph.h"
-#include <iterator>
 
 ListGraph::ListGraph(){}
 
@@ -76,11 +75,11 @@ int ListGraph::VerticesCount() const {return grph.size();}
 
 void ListGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const
 {
-    int tmp = vertex;
-    std::set<int> st;
-
-    if(grph.find(tmp) != grph.end())
+    if(grph.find(vertex) != grph.end())
     {
+        int tmp = vertex;
+        std::set<int> st;
+        vertices.clear();
         for(auto v : grph.find(tmp)->second)
             st.insert(v);
 
@@ -91,25 +90,36 @@ void ListGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const
                 for(auto v : grph.find(tmp)->second)
                     st.insert(v);
         }
-    }
 
-    for(auto it = st.begin(); it != st.end(); ++it)
-    {
-        vertices.push_back(*it);
+        vertices.assign(st.begin(), st.end());
     }
 }
 
 void ListGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const
-{
+{    
     if(grph.find(vertex) != grph.end())
     {
+        int tmp = vertex;
+        vertices.clear();
         for(auto it = grph.begin(); it != grph.end(); ++it)
         {
-            auto itVector = std::find(grph.at(it->first).begin(), grph.at(it->first).end(), vertex);
+            auto itVector = std::find(grph.at(it->first).begin(), grph.at(it->first).end(), tmp);
 
             if(itVector != grph.at(it->first).end())
-
                 vertices.push_back(it->first);
+        }
+
+        for(auto itSet = vertices.begin(); itSet != vertices.end(); ++itSet)
+        {
+            tmp = *itSet;
+
+                for(auto it = grph.begin(); it != grph.end(); ++it)
+                {
+                    auto itVector = std::find(grph.at(it->first).begin(), grph.at(it->first).end(), tmp);
+
+                    if(itVector != grph.at(it->first).end())
+                        vertices.push_back(it->first);
+                }
         }
     }
 }
