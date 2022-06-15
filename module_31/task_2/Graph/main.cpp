@@ -39,8 +39,11 @@ int main()
     cout << mg.VerticesCount() << endl;
 
     std::vector<int> v;
-//    lst1.GetNextVertices(1, v);
-    lst1.GetPrevVertices(3, v);
+//    lst1.GetNextVertices(0, v);
+//    lst1.GetPrevVertices(0, v);
+
+//    mg1.GetNextVertices(0, v);
+    mg1.GetPrevVertices(3, v);
 
     for(auto at : v)
         cout << at << " ";

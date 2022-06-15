@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "matrixgraph.h"
 
 MatrixGraph::MatrixGraph(){}
@@ -94,6 +95,50 @@ void MatrixGraph::AddEdge(int from, int to)
 
 int MatrixGraph::VerticesCount() const { return grph.size();}
 
-void MatrixGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const {}
+void MatrixGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const
+{
+    if(vertex < grph.size())
+    {
+        int tmp = vertex;
+        vertices.clear();
+        for(int i = 0; i < grph.size(); ++i)
+        {
+            if(grph[tmp][i] == 1 && std::find(vertices.begin(), vertices.end(), i) == vertices.end())
+                vertices.push_back(i);
+        }
 
-void MatrixGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const {}
+        for(int j = 0; j < vertices.size(); ++j)
+        {
+            tmp = vertices[j];
+            for(int i = 0; i < grph.size(); ++i)
+            {
+                if(grph[tmp][i] == 1 && std::find(vertices.begin(), vertices.end(), i) == vertices.end())
+                    vertices.push_back(i);
+            }
+        }
+    }
+}
+
+void MatrixGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const
+{
+    if(vertex < grph.size())
+    {
+        int tmp = vertex;
+        vertices.clear();
+        for(int i = 0; i < grph.size(); ++i)
+        {
+            if(grph[i][tmp] == 1 && std::find(vertices.begin(), vertices.end(), i) == vertices.end())
+                vertices.push_back(i);
+        }
+
+        for(int j = 0; j < vertices.size(); ++j)
+        {
+            tmp = vertices[j];
+            for(int i = 0; i < grph.size(); ++i)
+            {
+                if(grph[i][tmp] == 1 && std::find(vertices.begin(), vertices.end(), i) == vertices.end())
+                    vertices.push_back(i);
+            }
+        }
+    }
+}

@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <set>
 #include "listgraph.h"
 
 ListGraph::ListGraph(){}
@@ -78,20 +77,19 @@ void ListGraph::GetNextVertices(int vertex, std::vector<int> &vertices) const
     if(grph.find(vertex) != grph.end())
     {
         int tmp = vertex;
-        std::set<int> st;
         vertices.clear();
         for(auto v : grph.find(tmp)->second)
-            st.insert(v);
+            if(std::find(vertices.begin(), vertices.end(), v) == vertices.end())
+                    vertices.push_back(v);
 
-        for(auto it = st.begin(); it != st.end(); ++it)
+        for(int i = 0; i < vertices.size(); ++i)
         {
-            tmp = *it;
+            tmp = vertices[i];
             if(grph.find(tmp) != grph.end())
                 for(auto v : grph.find(tmp)->second)
-                    st.insert(v);
+                    if(std::find(vertices.begin(), vertices.end(), v) == vertices.end())
+                        vertices.push_back(v);
         }
-
-        vertices.assign(st.begin(), st.end());
     }
 }
 
@@ -103,23 +101,20 @@ void ListGraph::GetPrevVertices(int vertex, std::vector<int> &vertices) const
         vertices.clear();
         for(auto it = grph.begin(); it != grph.end(); ++it)
         {
-            auto itVector = std::find(grph.at(it->first).begin(), grph.at(it->first).end(), tmp);
-
-            if(itVector != grph.at(it->first).end())
-                vertices.push_back(it->first);
+            if(std::find(grph.at(it->first).begin(), grph.at(it->first).end(), tmp) != grph.at(it->first).end())
+                    vertices.push_back(it->first);
         }
 
-        for(auto itSet = vertices.begin(); itSet != vertices.end(); ++itSet)
+        for(int i = 0; i < vertices.size(); ++i)
         {
-            tmp = *itSet;
+            tmp = vertices[i];
 
-                for(auto it = grph.begin(); it != grph.end(); ++it)
-                {
-                    auto itVector = std::find(grph.at(it->first).begin(), grph.at(it->first).end(), tmp);
-
-                    if(itVector != grph.at(it->first).end())
+            for(auto it = grph.begin(); it != grph.end(); ++it)
+            {
+                if(std::find(grph.at(it->first).begin(), grph.at(it->first).end(), tmp) != grph.at(it->first).end() &&
+                        std::find(vertices.begin(), vertices.end(), it->first) == vertices.end())
                         vertices.push_back(it->first);
-                }
+            }
         }
     }
 }
