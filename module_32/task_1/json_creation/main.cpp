@@ -9,20 +9,24 @@ int main()
     json movies =
     {
         {
-            "movie",{
-                {"title", "Missing"},
-                {"country", "USA"},
-                {"date", 2022},
-                 {"genre", "action, thriller"},
-                {"Scenario", "Mark Friedman"},
-                {"director", "Brian Goodman"},
-                {"producer", "Brian Pitt"},
+            "The Imitation Game",{
+                {"country", "UK, USA"},
+                {"date", 2014},
+                {"distributed", "The Weinstein Company"},
+                {"category", "military, drama, history"},
+                {"director", "Morten Tyldum"},
+                {"producer", "Nora Grossman"},
                 {
-                    "cast", {"Gerard Butler", "Jaimie Alexander", "Dani Deetté", "Robert Walker Branch", "Jordan Salloum"}
+                    "cast", {
+                        {"Benedict Cumberbatch", "Alan Turing"},
+                        {"Keira Knightley", "Joan Clarke"},
+                        {"Matthew Goode", "Hugh Alexander"},
+                        {"Charles Dance", "Commander Denniston"},
+                        {"Mark Strong", "Stewart Menzies"}
+                    }
                 }
             }
         }
-
     };
 
     std::ofstream file("movielist.json");
