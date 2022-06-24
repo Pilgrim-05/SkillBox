@@ -13,7 +13,7 @@ T average(const std::vector<T> &arr)
         result /=arr.size();
     }else
     {
-        throw std::runtime_error("Divide by zero!");
+        throw std::runtime_error("ERROR! Divide by zero!");
     }
 
     return result;
@@ -33,14 +33,24 @@ void inputArray(std::vector<T> &arr)
 
 int main()
 {
-    std::vector<int> iArr(5);
+    std::vector<int> iArr(0);
     std::vector<double> dArr(5);
 
     inputArray(iArr);
-    std::cout << "Integer Average: " << average(iArr) << std::endl;
+    try {
+        std::cout << average(iArr) << std::endl;
+    }  catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
 
     inputArray(dArr);
-    std::cout << "Double Average: " << average(dArr) << std::endl;
+    try {
+        std::cout << average(dArr) << std::endl;
+    }  catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
 
 
     return 0;
