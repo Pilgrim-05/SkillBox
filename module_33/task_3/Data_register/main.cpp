@@ -4,7 +4,7 @@
 
 int main()
 {
-    Register<int, double> reg;
+    Register<int, std::string> reg;
 
     bool flag = true;
     while (flag)
