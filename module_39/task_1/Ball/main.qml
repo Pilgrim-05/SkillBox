@@ -30,7 +30,12 @@ Window {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: (ball.x >= rightRectangle.x) ? scene.states = "InitialState" : ball.x += 30
+                onClicked: {
+                    (ball.x >= rightRectangle.x) ? scene.state = "InitialState" : ball.x += 30
+                    if(ball.x == leftRectangle.x + 35)
+                        scene.state = "OtherState"
+                }
+
             }
         }
 
@@ -50,9 +55,9 @@ Window {
                 text: "return"
             }
 
-            MouseArea {
+            MouseArea {                
                 anchors.fill: parent
-                onClicked: scene.states = "InitialState"
+                onClicked: scene.state = "InitialState"
             }
         }
 
@@ -64,6 +69,7 @@ Window {
             width: leftRectangle.width - 10
             height: leftRectangle.height - 10
             radius: width / 2
+
         }
 
         states: [
