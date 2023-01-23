@@ -50,8 +50,7 @@ void GETRequest(const map<string, string> &args)
 void POSTRequest(const map<string, string> &args)
 {
     vector<cpr::Pair> pairs;
-    int i = 0;
-    for(auto it = args.begin(); it != args.end(); ++it, ++i)
+    for(auto it = args.begin(); it != args.end(); ++it)
     {
         cpr::Pair pair(it->first, it->second);
         pairs.push_back(pair);
